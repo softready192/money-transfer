@@ -17,7 +17,7 @@ import java.util.Set;
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -30,7 +30,7 @@ public class Account {
     private Double balance;
 
     @Version
-    private Long version;
+    private long version;
 
     @CreatedDate
     @Column(name = "created_date", nullable = false, updatable = false)
@@ -87,11 +87,11 @@ public class Account {
         this.transactionDetails = transactionDetails;
     }
 
-    public Long getVersion() {
+    public long getVersion() {
         return version;
     }
 
-    public void setVersion(Long version) {
+    public void setVersion(long version) {
         this.version = version;
     }
 

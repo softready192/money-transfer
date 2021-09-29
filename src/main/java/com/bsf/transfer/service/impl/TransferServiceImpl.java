@@ -54,7 +54,7 @@ public class TransferServiceImpl implements TransferService {
         Set<TransactionDetails> transactionDetails1 = account.getTransactionDetails();
         transactionDetails1.add(transactionDetails);
         account.setTransactionDetails(transactionDetails1);
-        accountService.save(account);
+        accountService.update(account);
     }
 
     private void debit(TransactionDetails transactionDetails, Account sourceAccount) {

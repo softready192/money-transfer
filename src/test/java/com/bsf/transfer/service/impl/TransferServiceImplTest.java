@@ -97,7 +97,7 @@ public class TransferServiceImplTest {
         when(accountService.findAccountByAccountNumber("Target")).thenReturn(targetAccount);
         transferService.transfer(
                 new TransferRequest(10D, "Transfer", "Source", "Target"));
-        verify(accountService, times(2)).save(any(Account.class));
+        verify(accountService, times(2)).update(any(Account.class));
         assertEquals(60D, targetAccount.getBalance());
         Assertions.assertNotNull(targetAccount.getTransactionDetails());
         assertEquals(1, targetAccount.getTransactionDetails().size());

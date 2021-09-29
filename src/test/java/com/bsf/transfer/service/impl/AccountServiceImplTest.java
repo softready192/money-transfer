@@ -3,6 +3,7 @@ package com.bsf.transfer.service.impl;
 
 import com.bsf.transfer.entity.Account;
 import com.bsf.transfer.exception.AccountExistsException;
+import com.bsf.transfer.model.AccountRequest;
 import com.bsf.transfer.repository.AccountRepository;
 import com.bsf.transfer.service.AccountService;
 import org.junit.jupiter.api.Assertions;
@@ -35,17 +36,17 @@ public class AccountServiceImplTest {
 
     @Test
     public void testSave() {
-        Account account = getAccount("123");
+        AccountRequest account = getAccountRequest("123");
         Account dbObject = Mockito.mock(Account.class);
         dbObject.setId(1L);
-        when(accountRepository.save(account)).thenReturn(dbObject);
+        when(accountRepository.save(Mockito.any(Account.class))).thenReturn(dbObject);
         Account response = accountService.save(account);
         assertEquals(response.getId(), dbObject.getId());
     }
 
     @Test
     public void testSaveWithSameAccountNumber() {
-        Account account = getAccount("123");
+        AccountRequest account = getAccountRequest("123");
         Account dbObject = Mockito.mock(Account.class);
         dbObject.setId(1L);
         when(accountRepository.existsAccountByAccountNumber("123")).thenReturn(true);
@@ -94,10 +95,19 @@ public class AccountServiceImplTest {
         Assertions.assertNull(response);
     }
 
+    private AccountRequest getAccountRequest(String test) {
+        AccountRequest accountRequest = new AccountRequest();
+        accountRequest.setAccountNumber(test);
+        accountRequest.setBalance(10d);
+        accountRequest.setName("TestUser1");
+        return accountRequest;
+    }
+
     private Account getAccount(String test) {
         Account account = new Account();
         account.setAccountNumber(test);
         account.setBalance(10d);
+        account.setName("TestUser1");
         return account;
     }
 }

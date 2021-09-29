@@ -1,11 +1,13 @@
 package com.bsf.transfer.controller;
 
 import com.bsf.transfer.entity.Account;
+import com.bsf.transfer.model.AccountRequest;
 import com.bsf.transfer.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,8 +22,8 @@ public class AccountController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody Account account) {
-        accountService.save(account);
+    public ResponseEntity<Void> save(@RequestBody @Valid AccountRequest accountRequest) {
+        accountService.save(accountRequest);
         return ResponseEntity.ok().build();
     }
 
